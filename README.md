@@ -52,6 +52,7 @@ Get Pro from the TODO tree's `…` menu, or run **`TODO Lens: Get TODO Lens Pro`
 ## Also by the author
 
 **[Branchline — Git Graph](https://marketplace.visualstudio.com/items?itemName=branchline.branchline)** — a fast, maintained Git Graph: see branches and history, inspect commits, and run git actions from the graph.
+- **[Snapline — Code Screenshots](https://marketplace.visualstudio.com/items?itemName=branchline.snapline-code-screenshots)** — beautiful code images in your editor's theme, in one click.
 
 ## Support
 
