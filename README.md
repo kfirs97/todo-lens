@@ -53,7 +53,7 @@ Get Pro from the TODO tree's `…` menu, or run **`TODO Lens: Get TODO Lens Pro`
 
 **[Branchline — Git Graph](https://marketplace.visualstudio.com/items?itemName=branchline.branchline)** — a fast, maintained Git Graph: see branches and history, inspect commits, and run git actions from the graph.
 - **[Snapline — Code Screenshots](https://marketplace.visualstudio.com/items?itemName=branchline.snapline-code-screenshots)** — beautiful code images in your editor's theme, in one click.
-- **[Docline — Python Docstring Generator](https://marketplace.visualstudio.com/items?itemName=branchline.docline-python-docstring-generator)** — type `"""` and get Google/NumPy/Sphinx docstrings.
+- **[Docline — Instant Python Docstrings](https://marketplace.visualstudio.com/items?itemName=branchline.docline-python-docstring-generator)** — type `"""` and get Google/NumPy/Sphinx docstrings.
 
 ## Support
 
