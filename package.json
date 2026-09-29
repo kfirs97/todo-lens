@@ -1,6 +1,6 @@
 {
   "name": "todo-lens",
-  "displayName": "TODO Lens — Better Comments & TODO Tree",
+  "displayName": "TODO Lens \u2014 Better Comments & TODO Tree",
   "version": "0.1.0",
   "publisher": "branchline",
   "license": "SEE LICENSE IN LICENSE",
@@ -8,7 +8,8 @@
     "build": "node esbuild.mjs",
     "typecheck": "tsc --noEmit",
     "test": "node esbuild.mjs --tests && node --test dist-test/*.test.js",
-    "package": "node esbuild.mjs --production && vsce package --no-dependencies"
+    "package": "node esbuild.mjs --production && vsce package --no-dependencies",
+    "e2e": "node esbuild.mjs && esbuild e2e/run.ts e2e/suite.ts --bundle --platform=node --format=cjs --external:vscode --external:@vscode/test-electron --outdir=dist-test/e2e --log-level=warning && node dist-test/e2e/run.js"
   },
   "engines": {
     "vscode": "^1.90.0"
@@ -22,5 +23,229 @@
     "esbuild": "^0.28.2",
     "ovsx": "^1.2.0",
     "typescript": "^5.9.3"
+  },
+  "description": "Highlight TODO, FIXME, ! alerts, ? questions and more in your comments, and see every TODO in your workspace in one tree. A maintained successor to Better Comments, TODO Highlight and TODO Tree.",
+  "categories": [
+    "Other",
+    "Visualization",
+    "Linters"
+  ],
+  "keywords": [
+    "todo",
+    "fixme",
+    "todo tree",
+    "better comments",
+    "comments",
+    "highlight",
+    "todo highlight",
+    "tasks",
+    "annotations",
+    "hack"
+  ],
+  "icon": "media/icon.png",
+  "galleryBanner": {
+    "color": "#1c1f26",
+    "theme": "dark"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kfirs97/todo-lens.git"
+  },
+  "bugs": {
+    "url": "https://github.com/kfirs97/todo-lens/issues"
+  },
+  "homepage": "https://github.com/kfirs97/todo-lens#readme",
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "todoLens",
+          "title": "TODO Lens",
+          "icon": "media/activity.svg"
+        }
+      ]
+    },
+    "views": {
+      "todoLens": [
+        {
+          "id": "todoLens.tree",
+          "name": "TODOs",
+          "icon": "media/activity.svg"
+        }
+      ]
+    },
+    "viewsWelcome": [
+      {
+        "view": "todoLens.tree",
+        "contents": "No TODOs found. Add a comment like `// TODO: something` and save.\n[Rescan Workspace](command:todoLens.refresh)"
+      }
+    ],
+    "commands": [
+      {
+        "command": "todoLens.refresh",
+        "title": "Rescan Workspace",
+        "category": "TODO Lens",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "todoLens.groupByFile",
+        "title": "Group by File",
+        "category": "TODO Lens",
+        "icon": "$(files)"
+      },
+      {
+        "command": "todoLens.groupByTag",
+        "title": "Group by Tag",
+        "category": "TODO Lens",
+        "icon": "$(tag)"
+      },
+      {
+        "command": "todoLens.showMine",
+        "title": "Show Only My TODOs (Pro)",
+        "category": "TODO Lens",
+        "icon": "$(person)"
+      },
+      {
+        "command": "todoLens.showAll",
+        "title": "Show Everyone's TODOs",
+        "category": "TODO Lens",
+        "icon": "$(organization)"
+      },
+      {
+        "command": "todoLens.export",
+        "title": "Export TODO Report (Pro)",
+        "category": "TODO Lens",
+        "icon": "$(export)"
+      },
+      {
+        "command": "todoLens.enterLicense",
+        "title": "Enter Pro License Key",
+        "category": "TODO Lens"
+      },
+      {
+        "command": "todoLens.removeLicense",
+        "title": "Remove Pro License Key",
+        "category": "TODO Lens"
+      },
+      {
+        "command": "todoLens.buyPro",
+        "title": "Get TODO Lens Pro",
+        "category": "TODO Lens"
+      }
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "todoLens.groupByTag",
+          "when": "view == todoLens.tree && todoLens.groupBy == file",
+          "group": "navigation@1"
+        },
+        {
+          "command": "todoLens.groupByFile",
+          "when": "view == todoLens.tree && todoLens.groupBy == tag",
+          "group": "navigation@1"
+        },
+        {
+          "command": "todoLens.showMine",
+          "when": "view == todoLens.tree && !todoLens.mineOnly",
+          "group": "navigation@2"
+        },
+        {
+          "command": "todoLens.showAll",
+          "when": "view == todoLens.tree && todoLens.mineOnly",
+          "group": "navigation@2"
+        },
+        {
+          "command": "todoLens.refresh",
+          "when": "view == todoLens.tree",
+          "group": "navigation@3"
+        },
+        {
+          "command": "todoLens.export",
+          "when": "view == todoLens.tree",
+          "group": "more@1"
+        },
+        {
+          "command": "todoLens.enterLicense",
+          "when": "view == todoLens.tree",
+          "group": "more@2"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "todoLens.groupByFile",
+          "when": "false"
+        },
+        {
+          "command": "todoLens.groupByTag",
+          "when": "false"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "TODO Lens",
+      "properties": {
+        "todoLens.highlightComments": {
+          "type": "boolean",
+          "default": true,
+          "description": "Color comments that start with a tag (TODO, FIXME, !, ?, *, //, \u2026)."
+        },
+        "todoLens.tags": {
+          "type": "array",
+          "default": [],
+          "markdownDescription": "Custom tags. Each item: `{ \"tag\": \"TODO\", \"color\": \"#FF8C00\", \"backgroundColor\": \"\", \"bold\": true, \"italic\": false, \"strikethrough\": false, \"todo\": true }`. `todo: true` lists the tag in the TODO tree. Leave empty to use the defaults.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "tag": {
+                "type": "string"
+              },
+              "color": {
+                "type": "string"
+              },
+              "backgroundColor": {
+                "type": "string"
+              },
+              "bold": {
+                "type": "boolean"
+              },
+              "italic": {
+                "type": "boolean"
+              },
+              "strikethrough": {
+                "type": "boolean"
+              },
+              "todo": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "tag"
+            ]
+          }
+        },
+        "todoLens.exclude": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [],
+          "description": "Extra glob patterns to skip when scanning (node_modules, dist, build, out and .gitignored files are always skipped)."
+        },
+        "todoLens.maxResults": {
+          "type": "number",
+          "default": 5000,
+          "description": "Maximum number of TODOs collected per workspace folder."
+        },
+        "todoLens.showStatusBarItem": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show the TODO count in the status bar."
+        }
+      }
+    }
   }
 }

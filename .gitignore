@@ -4,3 +4,4 @@ dist-test/
 *.vsix
 .env
 .vscode-test/
+.vscode-test/
