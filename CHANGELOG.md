@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.1
+
+- Sponsor button on the extension page
+- Links to the other Branchline extensions
+
 ## 0.1.0
 
 First release.

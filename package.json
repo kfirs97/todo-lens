@@ -1,7 +1,7 @@
 {
   "name": "todo-lens",
   "displayName": "TODO Lens \u2014 Better Comments & TODO Tree",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "publisher": "branchline",
   "license": "SEE LICENSE IN LICENSE",
   "scripts": {
