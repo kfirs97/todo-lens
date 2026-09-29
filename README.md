@@ -53,6 +53,10 @@ Get Pro from the TODO tree's `…` menu, or run **`TODO Lens: Get TODO Lens Pro`
 
 **[Branchline — Git Graph](https://marketplace.visualstudio.com/items?itemName=branchline.branchline)** — a fast, maintained Git Graph: see branches and history, inspect commits, and run git actions from the graph.
 
+## Support
+
+Free and maintained by one developer. If it saves you time, you can [chip in from $1](https://dealership6.gumroad.com/l/support) — or get Pro, which supports development too.
+
 ## Feedback
 
 Bugs and ideas: [GitHub issues](https://github.com/kfirs97/todo-lens/issues). A Marketplace rating helps other developers find TODO Lens.
