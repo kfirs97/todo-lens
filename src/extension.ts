@@ -7,6 +7,7 @@ import { BUY_URL } from './licenseVerify';
 import { markdownReport } from './report';
 import { config } from './config';
 import { LineBlame } from './blame';
+import { recordUse } from './nudge';
 
 /** Returned from activate() so tests (and other extensions) can read the scan results. */
 export interface TodoLensApi {
@@ -81,6 +82,7 @@ export async function activate(context: vscode.ExtensionContext): Promise<TodoLe
   void vscode.commands.executeCommand('setContext', 'todoLens.groupBy', 'file');
   updateCounts();
   const firstScan = store.scanAll();
+  if (vscode.workspace.workspaceFolders?.length) void recordUse(context, license);
   return { items: () => store.items, scan: () => firstScan.then(() => store.scanAll()) };
 }
 
