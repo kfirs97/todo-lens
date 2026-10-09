@@ -16,7 +16,12 @@ export interface TodoLensApi {
 }
 
 export async function activate(context: vscode.ExtensionContext): Promise<TodoLensApi> {
-  const license = new License(context);
+  const license = new License(context, {
+    product: 'TODO Lens',
+    features: 'TODO age & author, the My TODOs filter and TODO report export',
+    howTo: 'Try it: open the TODO Lens view — each TODO now shows who wrote it and when.',
+  });
+  context.subscriptions.push(license);
   await license.init();
   const store = new TodoStore();
   const tree = new TodoTree(store, license);

@@ -29,6 +29,8 @@ Works in 60+ languages — `//`, `#`, `--`, `;`, `%`, `<!-- -->`, `/* */` block 
 
 ## TODO Lens Pro
 
+**Try it free:** every Pro feature is unlocked for your first 7 days — no signup, no card. After that, keep them with a one-time license.
+
 Pro is part of **Branchline Pro** — a **one-time purchase** (no subscription) that also unlocks Pro in [Branchline — Git Graph](https://marketplace.visualstudio.com/items?itemName=branchline.branchline).
 
 - **TODO age & author** — see who wrote each TODO and how long ago (from git blame). Find the 3-year-old FIXMEs.
