@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 import { findComments } from './comments';
-import { syntaxFor } from './syntax';
+import { syntaxForEditor } from './syntax';
 import { matchTag, TagStyle } from './tags';
 import { config } from './config';
 
@@ -41,7 +41,7 @@ export class Highlighter implements vscode.Disposable {
   private decorate(editor: vscode.TextEditor): void {
     const { tags, highlight } = config();
     const byTag = new Map<string, vscode.Range[]>([...this.types.keys()].map(k => [k, []]));
-    const syntax = syntaxFor(editor.document.languageId);
+    const syntax = syntaxForEditor(editor.document.languageId, editor.document.fileName);
     if (highlight && syntax && editor.document.lineCount < 50_000) {
       const lines = editor.document.getText().split(/\r?\n/);
       for (const span of findComments(lines, syntax)) {

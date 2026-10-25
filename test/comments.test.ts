@@ -2,7 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { findComments } from '../src/comments';
 import { matchTag, DEFAULT_TAGS } from '../src/tags';
-import { syntaxFor, languageForPath } from '../src/syntax';
+import { syntaxFor, syntaxForEditor, languageForPath } from '../src/syntax';
 
 const tags = (lang: string, src: string) =>
   findComments(src.split('\n'), syntaxFor(lang)!)
@@ -64,4 +64,20 @@ test('language detection from file paths', () => {
   assert.equal(languageForPath('/x/Dockerfile'), 'dockerfile');
   assert.equal(languageForPath('.env.local'), 'dotenv');
   assert.equal(languageForPath('README'), undefined);
+});
+
+test('GDScript (Godot) comments are recognized, in the editor and in workspace scans', () => {
+  assert.equal(languageForPath('res/player.gd'), 'gdscript');
+  const spans = findComments(['var speed = 10 # TODO: tune this', 'var tag = "# not a comment"'], syntaxFor('gdscript')!);
+  assert.deepEqual(spans.map(s => s.text.trim()), ['TODO: tune this']);
+  assert.deepEqual(syntaxForEditor('gdscript'), syntaxFor('gdscript'));
+  assert.deepEqual(syntaxForEditor('plaintext', '/game/player.gd'), syntaxFor('gdscript'), '.gd opened as plain text');
+});
+
+test('unknown languages fall back to common comment styles in the editor; data formats do not', () => {
+  const syntax = syntaxForEditor('some-new-language')!;
+  const spans = findComments(['x = 1 // TODO: a', 'y = 2 # FIXME: b', '/* NOTE: c */'], syntax);
+  assert.deepEqual(spans.map(s => s.text.trim()), ['TODO: a', 'FIXME: b', 'NOTE: c']);
+  for (const id of ['plaintext', 'json', 'log', 'csv']) assert.equal(syntaxForEditor(id), undefined, id);
+  assert.equal(syntaxFor('some-new-language'), undefined, 'workspace scan stays conservative');
 });

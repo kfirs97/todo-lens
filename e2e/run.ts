@@ -8,6 +8,7 @@ import { join, resolve } from 'node:path';
   mkdirSync(join(ws, 'src'));
   writeFileSync(join(ws, 'src/app.ts'), '// TODO: first\nconst x = "TODO not this";\n/* FIXME second */\n');
   writeFileSync(join(ws, 'tool.py'), 'x = 1  # HACK third\n');
+  writeFileSync(join(ws, 'player.gd'), 'extends Node\nvar speed = 10 # TODO: godot fourth\n');
   await runTests({
     extensionDevelopmentPath: resolve(__dirname, '../..'),
     extensionTestsPath: resolve(__dirname, 'suite.js'),

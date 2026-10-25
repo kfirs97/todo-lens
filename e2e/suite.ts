@@ -9,7 +9,7 @@ export async function run(): Promise<void> {
   const api = await ext.activate();
   await api.scan();
   const summary = () => api.items().map(i => `${vscode.workspace.asRelativePath(i.file)}:${i.line}:${i.tag}:${i.message}`).sort();
-  assert.deepEqual(summary(), ['src/app.ts:0:TODO:first', 'src/app.ts:2:FIXME:second', 'tool.py:0:HACK:third'], 'initial scan uses bundled ripgrep');
+  assert.deepEqual(summary(), ['player.gd:1:TODO:godot fourth', 'src/app.ts:0:TODO:first', 'src/app.ts:2:FIXME:second', 'tool.py:0:HACK:third'], 'initial scan uses bundled ripgrep');
 
   // Saving a file updates just that file.
   const doc = await vscode.workspace.openTextDocument(vscode.Uri.joinPath(vscode.workspace.workspaceFolders![0].uri, 'tool.py'));
